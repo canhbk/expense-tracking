@@ -9,6 +9,7 @@ define('VIEWS_PATH', $root.'views'.DIRECTORY_SEPARATOR);
 
 
 require APP_PATH.'App.php';
+require APP_PATH.'helper.php';
 
 $transactions = [];
 
@@ -24,6 +25,7 @@ foreach($transactionFiles as $file){
       $transactions = array_merge($transactions, $result);
 }
 
+$totals = calculateTotals($transactions);
 
 
 

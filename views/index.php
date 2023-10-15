@@ -52,12 +52,44 @@
         </tr>
         <?php foreach($transactions as $transaction):?>
         <tr>
-            <td><?= $transaction['date']?></td>
+            <td><?=  formatDate($transaction['date'])?></td>
             <td><?= $transaction['checkNumber']?></td>
             <td><?= $transaction['description']?></td>
-            <td><?= $transaction['amount']?></td>
+            <td>
+            <?php if($transaction['amount'] > 0):?>
+                  <span style="color: green">
+                        <?= formatDollarAmount($transaction['amount'])?></td>
+                  </span>
+            <?php elseif ($transaction['amount'] < 0):?>
+                  <span style="color: red">
+                        <?= formatDollarAmount($transaction['amount'])?></td>
+                  </span>
+            <?php else: ?>
+                  <?= formatDollarAmount($transaction['amount'])?></td>
+            <?php endif?>
         </tr>
         <?php endforeach ?>
+
+        <tfoot class="footer">
+            <tr>
+                <td colspan="3">Total Income:</td>
+                <td>
+                <?= formatDollarAmount($totals['totalIncome'])?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">Total Expense:</td>
+                <td>
+                <?= formatDollarAmount($totals['totalExpense'])?>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">Total Net:</td>
+                <td>
+                    <?= formatDollarAmount($totals['netTotal'])?>
+                </td>
+            </tr>
+        </tfoot>
     </table>
 </body>
 </html>
